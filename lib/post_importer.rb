@@ -31,7 +31,8 @@ class PostImporter < Nokogiri::XML::SAX::Document
   end
 
   def characters(c)
-    logger.debug c
+    c = c.squeeze.strip.chomp
+    logger.debug c if c
   end
 
   def start_element(name, attrs)

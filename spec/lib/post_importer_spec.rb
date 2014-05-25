@@ -50,8 +50,6 @@ describe PostImporter do
       expect(@document.last_post[:body]).to_not be_nil
       expect(@document.last_post[:title]).to match(/Comments are a code smell/)
       expect(@document.last_post[:answer_count]).to eq(35)
-      expect(@document.last_post[:comment_count]).to eq(12)
-      expect(@document.last_post[:favourite_count]).to eq(34)
       expect(@document.last_post[:tags]).to eq(%w(commets anti-patterns))
       expect(@document.last_post[:created_at]).to eq('2010-09-01T19:34:48.000')
     end
@@ -61,7 +59,7 @@ describe PostImporter do
       expect(File.exist?(sql_file)).to be_true
 
       sql = File.read(sql_file)
-      expect(sql).to eq("INSERT INTO posts (created_at, updated_at, title, body) VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'It''s a great article', '#{@article.body}');\n")
+      expect(sql).to eq("INSERT INTO posts (created_at, updated_at, title, body, accepted_answer_id, score, view_count, answer_count) VALUES ('2010-09-01T19:34:48', CURRENT_TIMESTAMP, '\"Comments are a code smell\"', '#{@document.last_post[:body]}', 13, 101, 12414, 35);\n")
 
       # Try it!
       Post.connection.execute(sql)

@@ -1,8 +1,4 @@
-require_relative 'post_handler'
-
 class PostImporter < Nokogiri::XML::SAX::Document
-  include PostHandler
-
   # A logger to output to the screen
   attr_accessor :logger
 
@@ -31,8 +27,7 @@ class PostImporter < Nokogiri::XML::SAX::Document
   end
 
   def characters(c)
-    c = c.squeeze.strip.chomp
-    logger.debug c if c
+    logger.debug c.strip.chomp if c
   end
 
   def start_element(name, attrs)
@@ -41,23 +36,9 @@ class PostImporter < Nokogiri::XML::SAX::Document
 
   def end_element(name)
     logger.debug "Finished element #{name}"
-
-    # Call a handler name based on the name of the element
-    self.send(handler_method(name))
-  end
-
-  def method_missing(m, *args, &block)
-    logger.debug("Ignoring #{m}")
   end
 
   protected
-
-  # Build the name of a method dynamically based on an elements name
-  #
-  def handler_method(name)
-    :"handle_#{name.downcase}"
-  end
-
   # Remove any unwanted whitespace and escape single quotes for use in PSQL
   #
   def clean(s)

@@ -31,7 +31,25 @@ class PostImporter < Nokogiri::XML::SAX::Document
   end
 
   def start_element(name, attrs)
-    logger.debug "Found element #{name}"
+     if name == 'row' 
+       self.post_count += 1
+         Hash[attrs].each do |k, v|
+           case k
+           when "Id", "AcceptedAnswerId", "Score", "ViewCount", "AnswerCount"
+             self.last_post[k.underscore.to_sym]= v.to_i
+           when "Body"
+             self.last_post[k.downcase.to_sym] = v
+           when "Title"
+             self.last_post[k.downcase.to_sym] = v.gsub(/'&quot;'/, '')
+           when "Tags"
+             self.last_post[k.downcase.to_sym] = v.gsub(/</, '').split('>')
+           when "CreationDate"
+             self.last_post[k.underscore.to_sym] = v
+           end
+         end
+     end
+     logger.debug "Found element #{name}"
+
   end
 
   def end_element(name)

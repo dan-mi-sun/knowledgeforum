@@ -9,6 +9,8 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 gem 'nokogiri'
+gem 'mysql2', '0.3.12b5'
+gem 'thinking-sphinx', '~> 3.1.0'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0.beta'

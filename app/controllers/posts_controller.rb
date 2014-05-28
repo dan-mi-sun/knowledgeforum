@@ -1,12 +1,13 @@
 class PostsController < ApplicationController
 
   def index
+    @limit = 20
     if params[:offset] == nil 
-      @offset_value = 0  
+      @offset = params[:offset].to_i
+      @next_page = @offset + @limit 
     elsif
-      start = params[:offset].to_i
-      next_page = params[:offset].to_i
-      @start_page_number = start + next_page  
+      @offset = 0
+      @next_page =  @limit
     end 
       
     @posts = Post.offset(@offset_value).limit(20)

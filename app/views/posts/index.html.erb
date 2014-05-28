@@ -13,5 +13,5 @@
      <%= link_to "Show", post_path(post) %>
 <% end %>
 <%= link_to "Previous", '#' %>
-<%= link_to "Next", posts_path({:offset => @start_page_number }) %>
+<%= link_to "Next", posts_path({:offset => @next_page }) %>
 </article>

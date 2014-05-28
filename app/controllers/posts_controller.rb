@@ -13,6 +13,11 @@ class PostsController < ApplicationController
     #variable set by number user clicks
   end
 
+  def search
+    @results = Post.search(params[:search])
+    #get params values 
+  end
+
   def show
     @post = Post.find(params[:id])
   end

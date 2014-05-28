@@ -11,6 +11,9 @@ gem 'spring',        group: :development
 gem 'nokogiri'
 gem 'mysql2', '0.3.12b5'
 gem 'thinking-sphinx', '~> 3.1.0'
+gem 'cucumber-rails', :require => false
+  # database_cleaner is not required, but highly recommended
+gem 'database_cleaner'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0.beta'

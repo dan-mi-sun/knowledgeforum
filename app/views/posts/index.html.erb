@@ -1,7 +1,11 @@
+<h2> Index of Posts </h3>
+
 <article>
   <% @posts.each do |post| %>
     <h3><%=sanitize post.title %></h3>
      <p><%=sanitize post.body %></p>
      <%= link_to "Show", post_path(post) %>
 <% end %>
+<%= link_to "Previous", '#' %>
+<%= link_to "Next", posts_path({:offset => @start_page_number }) %>
 </article>

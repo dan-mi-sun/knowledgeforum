@@ -3,7 +3,7 @@ development:
   enable_star: true
   min_infix_len:  3
 test:
-  mysql41: 9312
+  mysql41: 9313
   enable_star: true
 production:
   mysql41: 9312
